@@ -10,9 +10,10 @@ class Lista extends Component {
     super(props);
     this.state = {
       list: [],
-      tunning: 'E',
+      tunning:'E',
       bpm: 100,
     };
+    this.refMet= React.createRef();
     this.clickHandler = this.clickHandler.bind(this)
 
   }
@@ -24,6 +25,11 @@ class Lista extends Component {
       tunning:resultado.data.key,
       bpm:resultado.data.tempo
     })
+    this.refMet.current.setState({
+      tunning:resultado.data.key,
+      bpm:resultado.data.tempo
+    })
+
   }
 
   render(){
@@ -33,17 +39,16 @@ class Lista extends Component {
       cards = this.props.list.map((m, i) => <Card key={i} item={m} handler={this.clickHandler}/>);
     }
   
-
-  return (
-    <div className="row">
-      <div className="col-md-6">
-        <div>{cards}</div>
+    return (
+      <div className="row">
+        <div className="col-md-6">
+          <div>{cards}</div>
+        </div>
+        <div className="col-md-6">
+          <Metronome tunning={this.state.tunning} bpm={this.state.bpm} ref={this.refMet}></Metronome>
+        </div>
       </div>
-      <div className="col-md-6">
-        <Metronome tunning={this.state.tunning} bpm={this.state.bpm}></Metronome>
-      </div>
-    </div>
-  )};
+    )};
 }
 
 export default Lista;

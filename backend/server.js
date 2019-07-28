@@ -140,7 +140,7 @@ router.post("/advanced",(req,res)=>{
   .then(function(data) {
       var tempo = data.body.track.tempo;
       var key = data.body.track.key;
-      res.send({tempo:tempo,key:keySet[key]})
+      res.send({tempo:Math.round(tempo),key:keySet[key]})
   })
   .catch(function(err) {
       console.log('Something went wrong:', err.message);

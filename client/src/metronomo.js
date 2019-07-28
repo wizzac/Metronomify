@@ -29,8 +29,7 @@ class Metronome extends Component {
         this.playClick,
         (60 / this.state.bpm) * 1000
       );
-      this.setState(
-        {
+      this.setState({
           count: 0,
           playing: true
         },
@@ -62,10 +61,7 @@ class Metronome extends Component {
 
   render() {
     const { playing, bpm,tunning } = this.state;
-    console.log(bpm)
-    console.log(tunning)
     return (
-      
       <div className="metronome fixed">
         <div className="bpm-slider">
           <div>{bpm} BPM</div>
