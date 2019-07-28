@@ -12,8 +12,8 @@ class Metronome extends Component {
     this.state = {
       playing: false,
       count: 0,
-      tunning:this.props.tune ? this.props.tune : 'E',
-      bpm: this.props.bpm ? this.props.bpm: 100,
+      tunning:this.props.tunning,
+      bpm:  this.props.bpm,
       beatsPerMeasure: 4
     };
   }
@@ -41,7 +41,6 @@ class Metronome extends Component {
 
   playClick = () => {
     const { count, beatsPerMeasure } = this.state;
-  
     // The first beat will have a different sound than the others
     if (count % beatsPerMeasure === 0) {
       this.click2.play();
@@ -60,8 +59,11 @@ class Metronome extends Component {
     this.setState({ bpm });
   }
 
+
   render() {
     const { playing, bpm,tunning } = this.state;
+    console.log(bpm)
+    console.log(tunning)
     return (
       
       <div className="metronome fixed">

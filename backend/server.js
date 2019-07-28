@@ -25,16 +25,7 @@ var spotifyApi = new SpotifyWebApi({
   redirectUri: redirect_uri
 });
 
-// this is our MongoDB database
-//const dbRoute ='mongodb://<your-db-username-here>:<your-db-password-here>@ds249583.mlab.com:49583/fullstack_app';
-// connects our back end code with the database
-//mongoose.connect(dbRoute, { useNewUrlParser: true });
-//let db = mongoose.connection;
-//db.once('open', () => console.log('connected to the database'));
-// checks if connection with the database is successful
-//db.on('error', console.error.bind(console, 'MongoDB connection error:'));
-// (optional) only made for logging and
-// bodyParser, parses the request body to be a readable json format
+
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(logger('dev'));
@@ -114,40 +105,42 @@ router.get('/callback', function(req, res) {
   }
 });
 
-
-/*
-app.get('/refresh_token', function(req, res) {
-  // requesting access token from refresh token
-  var refresh_token = req.query.refresh_token;
-  var authOptions = {
-    url: 'https://accounts.spotify.com/api/token',
-    headers: { 'Authorization': 'Basic ' + (new Buffer.alloc(client_id + ':' + client_secret).toString('base64')) },
-    form: {
-      grant_type: 'refresh_token',
-      refresh_token: refresh_token
-    },
-    json: true
-  };
-
-  request.post(authOptions, function(error, response, body) {
-    if (!error && response.statusCode === 200) {
-      var access_token = body.access_token;
-      res.send({
-        'access_token': access_token
-      });
-    }
-  }); 
-});
-*/
-
 router.post("/search",(req,res)=>{
-  console.log(req.body)
   return spotifyApi.searchTracks(req.body.stringToSearch)
   .then(function(data) {
       console.log('I got ' + data.body.tracks.total + ' results!');
       var firstPage = data.body.tracks.items;
-      console.log(firstPage[0]);
+//      console.log(firstPage[0])
       res.send({results:firstPage})
+  })
+  .catch(function(err) {
+      console.log('Something went wrong:', err.message);
+  });
+})
+
+
+
+
+ const keySet={
+   0:'C',
+   1:'C#/D♭',
+   2:'D',
+   3:'D#/E♭',
+   4:'E',
+   5:'F',
+   6:'F#/G♭',
+   7:'G',
+   8:'G#/A♭',
+   9:'A',
+   10:'A#/B♭',
+   11:'B'
+ }
+router.post("/advanced",(req,res)=>{
+  return spotifyApi.getAudioAnalysisForTrack(req.body.trackId)
+  .then(function(data) {
+      var tempo = data.body.track.tempo;
+      var key = data.body.track.key;
+      res.send({tempo:tempo,key:keySet[key]})
   })
   .catch(function(err) {
       console.log('Something went wrong:', err.message);

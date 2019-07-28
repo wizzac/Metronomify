@@ -12,10 +12,6 @@ import Buscador from './buscador';
 
 class App extends Component {
 
-
-
-
-
   constructor(){
     super();
     const params =this.getHashParams();
@@ -37,16 +33,11 @@ class App extends Component {
        hashParams[e[1]] = decodeURIComponent(e[2]);
        e = r.exec(q);
     }
-    console.log(hashParams)
     return hashParams;
   }
 
   // initialize our state
   
-
-
-  
-
   componentDidMount() {
 
     var options ={

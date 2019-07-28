@@ -5,17 +5,15 @@ import 'bootstrap/dist/js/bootstrap.bundle.min';
 import './style.css'
 import Lista from './lista'
 
-
-
-
 class Buscador extends Component {
-    state = {
+  
+    constructor(){
+      super();
+      this.state = {
         search:'',
         results:[],     
       }
 
-    constructor(){
-      super();
       this.handleChange = this.handleChange.bind(this);
       this.handleSubmit=this.handleSubmit.bind(this);
     }
@@ -28,15 +26,7 @@ class Buscador extends Component {
         event.preventDefault()
         var stringToSearch=this.state.search;
         const resultado=await axios.post('http://localhost:8888/search',{stringToSearch})
-        this.setState({ results:resultado.data });
-    }
-
-    get renderList() {
-        let lista = <h1>No hay resultados</h1>;
-        if (this.state.results) {
-          lista = <Lista list={this.state.results} />;
-        }
-        return lista;
+        this.setState({ results:resultado.data.results });
     }
 
     render(){
@@ -56,7 +46,7 @@ class Buscador extends Component {
                     <h3 >Esta Aplicacion permite buscar canciones en spotify, conocer en que nota esta afinada e iniciar un metrono al tempo estimado de la cancion</h3>
                 </div>
                 <br></br>
-                {this.renderList}
+                <Lista list={this.state.results} />
             </div>
         );
     }
