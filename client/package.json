@@ -12,6 +12,7 @@
     "react-scripts": "3.0.1",
     "typed.js": "^2.0.10"
   },
+   "proxy": "https://metronomify.herokuapp.com",
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
