@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+  import React, { Component } from 'react';
 import './metronomo.css';
 import click1 from './assets/click1.wav';
 import click2 from './assets/click2.wav';

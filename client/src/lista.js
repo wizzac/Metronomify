@@ -20,7 +20,7 @@ class Lista extends Component {
   
 
   async clickHandler(trackId){
-    const resultado=await axios.post('http://localhost:8888/advanced',{trackId:trackId})
+    const resultado=await axios.post('https://metronomify.herokuapp.com/advanced',{trackId:trackId})
     this.setState({
       tunning:resultado.data.key,
       bpm:resultado.data.tempo

@@ -25,7 +25,7 @@ class Buscador extends Component {
     handleSubmit = async event => {
         event.preventDefault()
         var stringToSearch=this.state.search;
-        const resultado=await axios.post('http://localhost:8888/search',{stringToSearch})
+        const resultado=await axios.post('https://metronomify.herokuapp.com/search',{stringToSearch})
         this.setState({ results:resultado.data.results });
     }
 
