@@ -16,6 +16,7 @@ require('dotenv').config();
 
 
 app.set('port', process.env.PORT || 8888);
+
 var client_id = process.env.CLIENT_ID; // Your client id
 var client_secret = process.env.CLIENT_SECRET; // Your secret
 var redirect_uri = process.env.REDIRECT_URI; // Your redirect uri
@@ -25,24 +26,12 @@ var spotifyApi = new SpotifyWebApi({
   clientSecret: client_secret,
   redirectUri: redirect_uri
 });
-//comment
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(logger('dev'));
 app.use(cookieParser());
 app.use('/', router);
-
-
-
-  app.use(express.static(path.join(__dirname, '../client/build')));  
-    app.get('*', (req, res) => {    res.sendfile(path.join(__dirname = '../client/build/index.html')); 
-   })
-
-app.get('*', (req, res) => {  
-  res.sendFile(path.join(__dirname+'../client/public/index.html'));
-})
-
 
 
 
@@ -161,4 +150,4 @@ router.post("/advanced",(req,res)=>{
 })
 
 // launch our backend into a port
-app.listen(process.env.PORT || 8888, () => console.log(`LISTENING ON PORT `+process.env.PORT || 8888 ));
+app.listen(process.env.PORT || 8888, () => console.log(path.join(__dirname = '/client/build/index.html')+`LISTENING ON PORT `+process.env.PORT || 8888 ));
