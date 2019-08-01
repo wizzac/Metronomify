@@ -34,8 +34,9 @@ app.use(cookieParser());
 app.use('/', router);
 
 app.use(express.static(path.join(__dirname, 'client/build')));
-app.use(express.static(path.join(__dirname, 'client/build'))); 
-app.get('*', (req, res) => {    res.sendfile(path.join(__dirname = 'client/build/index.html'));  })
+app.get('*', (req, res) => {  
+    res.sendfile(path.join(__dirname = 'client/build/index.html')); 
+})
 
 //router.get('*', (req, res) => {  res.sendFile(path.join(__dirname+'/client/public/index.html'));})
 
@@ -51,7 +52,7 @@ var generateRandomString = function(length) {
 
 var stateKey = 'spotify_auth_state';
 
-router.get('/login', function(req, res) {
+app.get('/login', function(req, res) {
   console.log("ENTRA AL LOGIN")
   var state = generateRandomString(16);
   res.cookie(stateKey, state);
@@ -63,7 +64,7 @@ router.get('/login', function(req, res) {
   '&redirect_uri=' + encodeURIComponent(process.env.REDIRECT_URI)+'&show_dialog=true'+'&state='+state);
 });
 
-router.get('/callback', function(req, res) {
+app.get('/callback', function(req, res) {
   var code = req.query.code || null;
   var state = req.query.state || null;
   var storedState = req.cookies ? req.cookies[stateKey] : null;
@@ -114,7 +115,7 @@ router.get('/callback', function(req, res) {
   }
 });
 
-router.post("/search",(req,res)=>{
+app.post("/search",(req,res)=>{
   return spotifyApi.searchTracks(req.body.stringToSearch)
   .then(function(data) {
       console.log('I got ' + data.body.tracks.total + ' results!');
@@ -142,7 +143,7 @@ router.post("/search",(req,res)=>{
    10:'A#/B♭',
    11:'B'
  }
-router.post("/advanced",(req,res)=>{
+ app.post("/advanced",(req,res)=>{
   return spotifyApi.getAudioAnalysisForTrack(req.body.trackId)
   .then(function(data) {
       var tempo = data.body.track.tempo;
