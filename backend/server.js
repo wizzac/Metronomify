@@ -50,7 +50,9 @@ var generateRandomString = function(length) {
 };
 
 var stateKey = 'spotify_auth_state';
+
 router.get('/login', function(req, res) {
+  console.log("ENTRA AL LOGIN")
   var state = generateRandomString(16);
   res.cookie(stateKey, state);
   var scope = 'user-read-private user-read-email';
