@@ -51,7 +51,7 @@ var generateRandomString = function(length) {
 
 var stateKey = 'spotify_auth_state';
 
-app.get('/login', function(req, res) {
+router.get('/login', function(req, res) {
   console.log("ENTRA AL LOGIN")
   var state = generateRandomString(16);
   res.cookie(stateKey, state);
@@ -63,7 +63,7 @@ app.get('/login', function(req, res) {
   '&redirect_uri=' + encodeURIComponent(process.env.REDIRECT_URI)+'&show_dialog=true'+'&state='+state);
 });
 
-app.get('/callback', function(req, res) {
+router.get('/callback', function(req, res) {
   var code = req.query.code || null;
   var state = req.query.state || null;
   var storedState = req.cookies ? req.cookies[stateKey] : null;
@@ -98,6 +98,7 @@ app.get('/callback', function(req, res) {
         };
         // use the access token to access the Spotify Web API
         request.get(options, function(error, response, body) {
+          
         });
         // we can also pass the token to the browser to make requests from there
         res.redirect('http://localhost:3000#' +
@@ -114,7 +115,7 @@ app.get('/callback', function(req, res) {
   }
 });
 
-app.post("/search",(req,res)=>{
+router.post("/search",(req,res)=>{
   return spotifyApi.searchTracks(req.body.stringToSearch)
   .then(function(data) {
       console.log('I got ' + data.body.tracks.total + ' results!');
