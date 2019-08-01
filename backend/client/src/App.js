@@ -70,7 +70,7 @@ class App extends Component {
                 <div className="row">
                   <div className="col-md-12">
                     <br></br>    
-                    <a className="btnesta pull-right" href='https://metronomify.herokuapp.com/login'>Conectar a spotifyyyy</a>
+                    <a className="btnesta pull-right" href='/login'>Conectar a spotifyyyy</a>
                   </div>
                 </div>
                 <br></br>

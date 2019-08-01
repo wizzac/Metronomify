@@ -34,9 +34,8 @@ app.use(cookieParser());
 app.use('/', router);
 
 app.use(express.static(path.join(__dirname, 'client/build')));
-app.get('*', (req, res) => {  
-    res.sendfile(path.join(__dirname = 'client/build/index.html')); 
-})
+
+
 
 //router.get('*', (req, res) => {  res.sendFile(path.join(__dirname+'/client/public/index.html'));})
 
@@ -153,6 +152,10 @@ app.post("/search",(req,res)=>{
   .catch(function(err) {
       console.log('Something went wrong:', err.message);
   });
+})
+
+app.get('*', (req, res) => {  
+  res.sendfile(path.join(__dirname = 'client/build/index.html')); 
 })
 
 // launch our backend into a port
