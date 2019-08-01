@@ -35,11 +35,15 @@ app.use('/', router);
 
 
 
-app.use('/react', express.static(path.join(__dirname, '../client/build')));
+  app.use(express.static(path.join(__dirname, '../client/build')));  
+    app.get('*', (req, res) => {    res.sendfile(path.join(__dirname = '../client/build/index.html')); 
+   })
 
 app.get('*', (req, res) => {  
   res.sendFile(path.join(__dirname+'../client/public/index.html'));
 })
+
+
 
 
 var generateRandomString = function(length) {
