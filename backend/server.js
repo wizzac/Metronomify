@@ -14,6 +14,7 @@ var path = require('path');
 const router = express.Router();
 require('dotenv').config(); 
 
+
 app.set('port', process.env.PORT || 8888);
 var client_id = process.env.CLIENT_ID; // Your client id
 var client_secret = process.env.CLIENT_SECRET; // Your secret
@@ -31,6 +32,11 @@ app.use(bodyParser.json());
 app.use(logger('dev'));
 app.use(cookieParser());
 app.use('/', router);
+
+
+
+app.use(express.static(path.join(__dirname, '../client/build')))
+//build modeapp.get('*', (req, res) => {  res.sendFile(path.join(__dirname+'/client/public/index.html'));})
 
 
 var generateRandomString = function(length) {
