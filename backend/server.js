@@ -33,6 +33,11 @@ app.use(logger('dev'));
 app.use(cookieParser());
 app.use('/', router);
 
+app.use(express.static(path.join(__dirname, 'client/build')));
+app.use(express.static(path.join(__dirname, 'client/build'))); 
+app.get('*', (req, res) => {    res.sendfile(path.join(__dirname = 'client/build/index.html'));  })
+
+//router.get('*', (req, res) => {  res.sendFile(path.join(__dirname+'/client/public/index.html'));})
 
 
 var generateRandomString = function(length) {
@@ -121,8 +126,6 @@ router.post("/search",(req,res)=>{
 })
 
 
-
-
  const keySet={
    0:'C',
    1:'C#/D♭',
@@ -150,4 +153,4 @@ router.post("/advanced",(req,res)=>{
 })
 
 // launch our backend into a port
-app.listen(process.env.PORT || 8888, () => console.log(path.join(__dirname = '/client/build/index.html')+`LISTENING ON PORT `+process.env.PORT || 8888 ));
+app.listen(process.env.PORT || 8888, () => console.log(path.join(__dirname) +`LISTENING ON PORT `+process.env.PORT || 8888 ));
