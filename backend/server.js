@@ -35,8 +35,11 @@ app.use('/', router);
 
 
 
-app.use(express.static(path.join(__dirname, '../client/build')))
-//build modeapp.get('*', (req, res) => {  res.sendFile(path.join(__dirname+'/client/public/index.html'));})
+router.use(express.static(path.join(__dirname, '../client/build')))
+
+router.get('*', (req, res) => {  
+  res.sendFile(path.join(__dirname+'/client/public/index.html'));
+})
 
 
 var generateRandomString = function(length) {
