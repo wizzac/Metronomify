@@ -33,8 +33,10 @@ app.use(logger('dev'));
 app.use(cookieParser());
 app.use('/', router);
 
-app.use(express.static(path.join(__dirname, 'client/build')));
+//app.use(express.static(path.join(__dirname, 'client/build')));
 
+var clientPath = __dirname.replace("/backend", "");
+app.use('/', express.static(path.join(clientPath, '/client/build')));
 
 
 //router.get('*', (req, res) => {  res.sendFile(path.join(__dirname+'/client/public/index.html'));})
