@@ -33,6 +33,11 @@ app.use(cookieParser());
 app.use('/', router);
 
 
+
+var clientPath = __dirname.replace("/backend", "");
+app.use('/', express.static(path.join(clientPath, '/client/build')));
+
+
 var generateRandomString = function(length) {
   var text = '';
   var possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
@@ -146,6 +151,12 @@ router.post("/advanced",(req,res)=>{
       console.log('Something went wrong:', err.message);
   });
 })
+
+
+app.get('*', (req, res) => {  
+  res.sendfile(path.join(__dirname = 'client/build/index.html')); 
+})
+
 
 // launch our backend into a port
 app.listen(process.env.PORT || 8888, () => console.log(`LISTENING ON PORT `+process.env.PORT || 8888 ));
