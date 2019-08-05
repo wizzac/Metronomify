@@ -6,12 +6,13 @@ var querystring = require('querystring');
 var cookieParser = require('cookie-parser');
 var SpotifyWebApi = require('spotify-web-api-node');
 var bodyParser = require('body-parser');
-var axios=require('axios');
+
 const logger = require('morgan');
 const app = express();
 app.use(cors());
 var path = require('path');
-const router = express.Router();
+
+//const router = express.Router();
 require('dotenv').config(); 
 
 
@@ -31,12 +32,12 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(logger('dev'));
 app.use(cookieParser());
-app.use('/', router);
+//app.use('/', router);
 
 //app.use(express.static(path.join(__dirname, 'client/build')));
 
-var clientPath = __dirname.replace("/backend", "");
-app.use('/', express.static(path.join(clientPath, '/client/build')));
+//var clientPath = __dirname.replace("/backend", "");
+app.use('/', express.static(path.join(__dirname, 'client/build')));
 
 
 //router.get('*', (req, res) => {  res.sendFile(path.join(__dirname+'/client/public/index.html'));})
@@ -53,7 +54,7 @@ var generateRandomString = function(length) {
 
 var stateKey = 'spotify_auth_state';
 
-router.get('/login', function(req, res) {
+app.get('/login', function(req, res) {
   console.log("ENTRA AL LOGIN")
   var state = generateRandomString(16);
   res.cookie(stateKey, state);
@@ -65,7 +66,7 @@ router.get('/login', function(req, res) {
   '&redirect_uri=' + encodeURIComponent(process.env.REDIRECT_URI)+'&show_dialog=true'+'&state='+state);
 });
 
-router.get('/callback', function(req, res) {
+app.get('/callback', function(req, res) {
   var code = req.query.code || null;
   var state = req.query.state || null;
   var storedState = req.cookies ? req.cookies[stateKey] : null;
@@ -117,7 +118,7 @@ router.get('/callback', function(req, res) {
   }
 });
 
-router.post("/search",(req,res)=>{
+app.post("/search",(req,res)=>{
   return spotifyApi.searchTracks(req.body.stringToSearch)
   .then(function(data) {
       console.log('I got ' + data.body.tracks.total + ' results!');
@@ -158,7 +159,7 @@ router.post("/search",(req,res)=>{
 })
 
 app.get('*', (req, res) => {  
-  res.sendfile(path.join(__dirname = 'client/build/index.html')); 
+  res.sendfile(path.join(__dirname = '/client/build/index.html')); 
 })
 
 // launch our backend into a port
